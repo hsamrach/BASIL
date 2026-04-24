@@ -30,9 +30,9 @@ nextflow run basil.nf --help # show help
 ```
 # Options
 ```
-Usage: nextflow run main.nf --reads_dir <reads_directory> [options]
-       nextflow run main.nf --reads_tsv <samples.tsv> [options]
-       nextflow run main.nf --r1 <read1.fastq(.gz)> --r2 <read2.fastq(.gz)> [options]
+Usage: basil --reads_dir <reads_directory> [options]
+       basil --reads_tsv <samples.tsv> [options]
+       basil --r1 <read1.fastq(.gz)> --r2 <read2.fastq(.gz)> [options]
 
 Input/Output:
     --r1 FILE                           Input read 1 file (default: null)
