@@ -13,7 +13,7 @@ basil --reads_dir /path/fastq_dir --outdir /path/output_1 --cpus8 --ram 120 --pa
 ## Install via conda or mamba
 This is a ready-to-use installation that automatically installs Nextflow and BASIL together in one command.
 ```
-conda(mamba) create -n basil_env basil=1.0 -y
+conda(mamba) create -n basil_env -c samrachhan11 basil=1.0 -y
 conda(mamba) activate basil_env
 basil --help # show help
 ```
