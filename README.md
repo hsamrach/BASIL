@@ -113,7 +113,7 @@ rm -f gtdbtk_data.tar.gz
 ## Kraken2 database (Optional)
 For Kraken2, you can download their pre-built database through this link with your preferred database: https://benlangmead.github.io/aws-indexes/k2
 # Containers available
-## Apptainer/Singularity/Docker/
+## Apptainer/Singularity/Docker
 User can specify their runtime container using -profile "STRING".
 # Mamba
 In addition to containerized based, Mamba is also supported for users who already have it installed. (-profile mamba)
