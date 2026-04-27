@@ -1,0 +1,15 @@
+name: polish_reads_tools
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - htslib
+  - samtools=1.23
+  - bwa-mem2=2.3
+  - samclip=0.4
+  - pilon=1.24
+  - openjdk
+  - fastp=1.1.0
+  - seqkit=2.13.0
+  - kmc=3.2.4

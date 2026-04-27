@@ -1,0 +1,9 @@
+name: amr_tools
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - abricate=1.0.1
+  - abritamr=1.0.20
+  - pandas=3.0.1

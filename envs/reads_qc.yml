@@ -1,0 +1,9 @@
+name: reads_qc
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - fastp=1.1.0
+  - seqkit=2.13.0
+  - kmc=3.2.4

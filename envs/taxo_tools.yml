@@ -1,0 +1,9 @@
+name: taxo_tools
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python=3.11
+  - kraken2=2.1.6
+  - gtdbtk=2.5.2
