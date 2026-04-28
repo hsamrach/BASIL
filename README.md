@@ -1,3 +1,4 @@
+# Under construction
 <img src="BASIL_logo.png" alt="Logo" width="200">
 
 BASIL is a NextFlow workflow for bacterial genome analysis of paired-end Illumina reads that integrates pre-assembly, assembly, and post-assembly strategies to improve de novo genome assembly. It is inspired by existing tools such as [fq2dna](https://gitlab.pasteur.fr/GIPhy/fq2dna), [shovill](https://github.com/tseemann/shovill), and [QAssfilt](https://github.com/hsamrach/QAssfilt). In addition to assembly, BASIL also provides downstream analyses, including species identification and the detection of antimicrobial resistance (AMR), plasmid, and virulence genes, making it suitable for bacterial genomicer. At each step of the process, important results are summarized in the interactive HTML report, allowing users to easily track and evaluate the workflow’s performance.
@@ -23,7 +24,7 @@ basil --reads_dir /path/fastq_dir --outdir /path/output_1 --cpus8 --ram 120 --pa
 ## Install via conda or mamba
 This is a ready-to-use installation that automatically installs Nextflow and BASIL together in one command.
 ```
-conda(mamba) create -n basil_env -c samrachhan11 basil=1.0 -y
+conda(mamba) create -n basil_env -c samrachhan11 -c conda-forge -c bioconda -c defaults basil=1.0 -y
 conda(mamba) activate basil_env
 basil --help # show help
 ```
