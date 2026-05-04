@@ -86,7 +86,7 @@ Resources control:
     --help                              Show this help message and exit
 ```
 ## --min_genome_cov
-The genome coverage under this value will not be submitted to assembly but will run Kraken2 as usual.
+The genome coverage under this value will not be submitted to assembly but its fastq reads will run Kraken2 as usual.
 ## --max_genome_cov
 The genome coverage more than this value will be downsampled to meet this value only.
 ```
