@@ -81,7 +81,7 @@ Resources control:
     --cpus N                            CPUs in GB per sample (default: 8)
     --ram N                             RAM in GB per sample (default: 16)
     -resume                             Resume work (built-in nextflow function)
-    -profile "STRING"                   Alternative use of profile platform (choices: singularity/docker/mamba, default: apptainer)
+    -profile "STRING"                   Alternative use of profile platform (choices: apptainer/singularity/docker/mamba, default: apptainer)
     --version                           Show version and exit
     --help                              Show this help message and exit
 ```
