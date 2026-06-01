@@ -1,7 +1,7 @@
 # Under construction
 <img src="BASIL_logo.png" alt="Logo" width="400">
 
-BASIL is a NextFlow workflow for bacterial genome analysis of paired-end Illumina reads that integrates pre-assembly, assembly, and post-assembly strategies to improve de novo genome assembly. It is inspired by existing tools such as [fq2dna](https://gitlab.pasteur.fr/GIPhy/fq2dna), [shovill](https://github.com/tseemann/shovill), and [QAssfilt](https://github.com/hsamrach/QAssfilt). In addition to assembly, BASIL also provides downstream analyses, including species identification and the detection of antimicrobial resistance (AMR), plasmid, and virulence genes, making it suitable for bacterial genomicer. At each step of the process, important information are summarized in the interactive HTML report, allowing users to easily track and evaluate the workflow’s performance and the genomic result.
+BASIL is a NextFlow workflow for bacterial genome analysis of paired-end Illumina reads that integrates pre-assembly, assembly, and post-assembly strategies to improve de novo genome assembly. It is inspired by existing tools such as [fq2dna](https://gitlab.pasteur.fr/GIPhy/fq2dna), [shovill](https://github.com/tseemann/shovill), and [QAssfilt](https://github.com/hsamrach/QAssfilt). In addition to assembly, BASIL also provides downstream analyses, including species identification and the detection of antimicrobial resistance (AMR), plasmid, and virulence genes, making it suitable for bacterial genomicers. At each step of the process, important information is summarized in the interactive HTML report, allowing users to easily track and evaluate the workflow’s performance and the genomic result.
 # Contents
 - [Workflow Diagram](#workflow-diagram)
 - [Quick tips](#quick-tips)
@@ -41,11 +41,11 @@ nextflow run basil.nf --help # show help
 ```
 # Options
 ```
-Usage: basil --reads_dir <reads_directory> [options]
-       basil --reads_tsv <samples.tsv> [options]
-       basil --r1 <read1.fastq(.gz)> --r2 <read2.fastq(.gz)> [options]
+    Usage: basil --reads_dir <reads_directory> [options]
+           basil --reads_tsv <samples.tsv> [options]
+           basil --r1 <read1.fastq(.gz)> --r2 <read2.fastq(.gz)> [options]
 
-Input/Output:
+    Input/Output:
     --r1 FILE                           Input read 1 file (default: null)
     --r2 FILE                           Input read 2 file (default: null)
     --reads_dir DIR                     Directory containing paired-end reads (default: null)
@@ -53,7 +53,7 @@ Input/Output:
     --dir_depth N                       Depth of directory for searching reads in --reads_dir (default: 1)
     --outdir DIR                        Output directory (default: BASIL_out)
 
-Paired-end QC:
+    Paired-end QC:
     --pe_quality_fail_rate N            Maximum percentage of low-quality bases allowed (default: 40)
     --pe_min_length N                   Minimum read length required (default: 50)
     --pe_base_depth N                   Phred score threshold for qualified bases (default: 15)
@@ -63,25 +63,28 @@ Paired-end QC:
     --max_genome_cov N                  Maximum genome coverage for downsampling (default: > 150)
     --genome_size N                     Expected genome size. e.g. --genome_size 5000000 (Automatically calculate if not provided)
 
-Assembly analysis:
+    Assembly analysis:
     --asm_used "STRING"                 SPAdes output to use for downstream analysis (choices: contigs/scaffolds, default: contigs)
     --min_contig_length N               Minimum contig length for filtered assembly (default: ≤ 300)
     --min_contig_cov N                  Minimum contig coverage for filtered assembly (default: ≤ 2)
     --skip_polish                       Skip polishing step (default: disabled)
     --only_filtered                     Only filtered contigs will be submitted to process speciation, and gene prediction (default: disabled)
     --only_polished                     Only polished contigs will be submitted to process speciation, and gene prediction (default: disabled)
-    --checkm2_db FILE                   Path to CheckM2 database (mandatory) "/path/checkm2_database/uniref100.KO.1.dmnd/" (default: null)
-    --kraken2_db DIR                    Path to Kraken2 database to trigger kraken2 step (default: skipped)
-    --gtdbtk_db DIR                     Path to GTDB-Tk database to trigger GTDB-Tk step (default: skipped)
-    --abritamr_opt "STRING"             Use at least an option of abritamr to trigger abritamr step (default: "skipped")
-    --abricate_opt "STRING"             Use at least an option of abricate to trigger abricate step (default: "skipped")
+    --checkm2_db FILE                   Path to CheckM2 database (mandatory) "/path/checkm2_database/uniref100.KO.1.dmnd/" (saved for future runs)
+    --kraken2_db DIR                    Path to Kraken2 database (saved for future runs, auto-runs if available)
+    --gtdbtk_db DIR                     Path to GTDB-Tk database (saved for future runs, auto-runs if available)
+    --abricate_opt "STRING"             Extra abricate options (default: runs with default options of abricate)
+    --abritamr_opt "STRING"             Extra abritamr options (default: runs with default options of abritamr)
 
-Resources control:
+    Resources control:
     --parallel_run N                    Number of sample runs in parallel (default: 1)
     --cpus N                            CPUs in GB per sample (default: 8)
     --ram N                             RAM in GB per sample (default: 16)
     -resume                             Resume work (built-in nextflow function)
     -profile "STRING"                   Alternative use of profile platform (choices: apptainer/singularity/docker/mamba, default: apptainer)
+
+    Configuration management:
+    --clear_saved_db "STRING"           Clear saved database paths (choices: checkm2, kraken2, gtdbtk, all)
     --version                           Show version and exit
     --help                              Show this help message and exit
 ```
@@ -95,7 +98,10 @@ For example:
 So, 200 coverages of reads will be reduced to 150 coverages using the downsampling method.
 ```
 # Databases
+Once you specify the database path for each tool, the path will be saved, so you won't need to enter it again for the next run. Meanwhile, you can also overwrite or clear the saved database paths at any time.
 ## CheckM2 database (Mandatory)
+Without CheckM2 database, BASIL won't run!
+
 You can download CheckM2 database through their provided instruction: https://github.com/chklovski/CheckM2#databases.
 
 Alternatively, you can use the command below to automate the download and decompression.
