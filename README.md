@@ -44,12 +44,14 @@ nextflow run basil.nf --help # show help
     Usage: basil --reads_dir <reads_directory> [options]
            basil --reads_tsv <samples.tsv> [options]
            basil --r1 <read1.fastq(.gz)> --r2 <read2.fastq(.gz)> [options]
+           basil --contigs_dir <contigs_directory> [options]
 
     Input/Output:
     --r1 FILE                           Input read 1 file (default: null)
     --r2 FILE                           Input read 2 file (default: null)
     --reads_dir DIR                     Directory containing paired-end reads (default: null)
     --reads_tsv FILE                    TSV file with columns: sample, read1, read2 (default: null)
+    --contigs_dir DIR                   Directory containing pre-assembled contigs (.fasta, .fas, .fa, .fna) (default: null)
     --dir_depth N                       Depth of directory for searching reads in --reads_dir (default: 1)
     --outdir DIR                        Output directory (default: BASIL_out)
 
@@ -73,17 +75,24 @@ nextflow run basil.nf --help # show help
     --checkm2_db FILE                   Path to CheckM2 database (mandatory) "/path/checkm2_database/uniref100.KO.1.dmnd/" (saved for future runs)
     --kraken2_db DIR                    Path to Kraken2 database (saved for future runs, auto-runs if available)
     --gtdbtk_db DIR                     Path to GTDB-Tk database (saved for future runs, auto-runs if available)
-    --abricate_opt "STRING"             Extra abricate options (default: runs with default options of abricate)
-    --abritamr_opt "STRING"             Extra abritamr options (default: runs with default options of abritamr)
+    --minid_genes N                     Minimum identity for abricate & abritamr (default: 90)
+    --mincov_genes N                    Minimum coverage for abricate (default: 90). abritamr is constantly used 90% coverage (unmodifiable).
+    --mutation "STRING"                 Provide species name for point mutation analysis by abritamr (default: null)
+                                        Available species: "Acinetobacter_baumannii,Burkholderia_cepacia,Burkholderia_pseudomallei,
+                                        Burkholderia_mallei,Campylobacter,Citrobacter_freundii,Clostridioides_difficile,
+                                        Corynebacterium_diphtheriae,Enterobacter_asburiae,Enterobacter_cloacae,Enterococcus_faecalis,
+                                        Enterococcus_faecium,Escherichia,Klebsiella_oxytoca,Klebsiella_pneumoniae,Neisseria_gonorrhoeae,
+                                        Neisseria_meningitidis,Pseudomonas_aeruginosa,Salmonella,Serratia_marcescens,Staphylococcus_aureus,
+                                        Staphylococcus_pseudintermedius,Streptococcus_agalactiae,Streptococcus_pneumoniae,Streptococcus_pyogenes,
+                                        Vibrio_cholerae,Vibrio_vulfinicus,Vibrio_parahaemolyticus"
 
     Resources control:
+    --meta_merge "f1.csv,f2.xls,..."    Merge metadata and genomic output file (.xlsx, .xls, .tsv, .csv, .tab) (default: null)
     --parallel_run N                    Number of sample runs in parallel (default: 1)
     --cpus N                            CPUs in GB per sample (default: 8)
     --ram N                             RAM in GB per sample (default: 16)
     -resume                             Resume work (built-in nextflow function)
     -profile "STRING"                   Alternative use of profile platform (choices: apptainer/singularity/docker/mamba, default: apptainer)
-
-    Configuration management:
     --clear_saved_db "STRING"           Clear saved database paths (choices: checkm2, kraken2, gtdbtk, all)
     --version                           Show version and exit
     --help                              Show this help message and exit
@@ -130,6 +139,7 @@ In addition to containerized based, Mamba is also supported for users who alread
 - [seqkit](https://github.com/shenwei356/seqkit)=2.13.0
 - [multiqc](https://github.com/MultiQC/MultiQC)=1.31
 - [pandas](https://github.com/pandas-dev/pandas)=3.0.1
+- [openpyxl](https://pypi.org/project/openpyxl/)=3.1.5
 - [samtools](https://github.com/samtools/samtools)=1.23
 - [bwa-mem2](https://github.com/bwa-mem2/bwa-mem2)=2.3
 - [spades](https://github.com/ablab/spades)=4.2.0
@@ -140,8 +150,8 @@ In addition to containerized based, Mamba is also supported for users who alread
 - [kraken2](https://github.com/DerrickWood/kraken2)=2.1.6
 - [gtdbtk](https://github.com/Ecogenomics/GTDBTk)=2.5.2
 - [checkm2](https://github.com/chklovski/CheckM2)=1.1.0
-- [abricate](https://github.com/tseemann/abricate)=1.0.1
-- [abritamr](https://github.com/MDU-PHL/abritamr)=1.0.20
+- [abricate](https://github.com/tseemann/abricate)=1.4.0
+- [abritamr](https://github.com/MDU-PHL/abritamr)=1.3.0
 
 Please cite each of these tools if you are using this workflow.
 # Authors
