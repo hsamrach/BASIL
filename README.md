@@ -1,7 +1,11 @@
 # Under construction
 <img src="BASIL_logo.png" alt="Logo" width="400">
 
-BASIL is a NextFlow workflow for bacterial genome analysis of paired-end Illumina reads that integrates pre-assembly, assembly, and post-assembly strategies to improve de novo genome assembly. It is inspired by existing tools such as [fq2dna](https://gitlab.pasteur.fr/GIPhy/fq2dna), [shovill](https://github.com/tseemann/shovill), and [QAssfilt](https://github.com/hsamrach/QAssfilt). In addition to assembly, BASIL also provides downstream analyses, including species identification and the detection of antimicrobial resistance (AMR), plasmid, and virulence genes, making it suitable for bacterial genomicers. At each step of the process, important information is summarized in the interactive HTML report, allowing users to easily track and evaluate the workflow’s performance and the genomic result.
+BASIL is a NextFlow workflow for bacterial genome analysis of paired-end Illumina reads that integrates pre-assembly, assembly, and post-assembly strategies to improve de novo genome assembly. It is inspired by existing tools such as [fq2dna](https://gitlab.pasteur.fr/GIPhy/fq2dna), [shovill](https://github.com/tseemann/shovill), and [QAssfilt](https://github.com/hsamrach/QAssfilt). 
+
+In addition to assembly, BASIL also provides downstream analyses, including species identification and the detection of antimicrobial resistance (AMR), plasmid, and virulence genes, making it suitable for bacterial genomicers. To improve AMR interpretation, results from five databases (NCBI AMRFinderPlus, CARD, ARG-ANNOT, ResFinder, and AMRFinderPlus_abritamr) are compared and combined into a consensus output for easier review. BASIL also supports the integration of metadata with genomic results.
+
+At each step of the process, important information is summarized in the interactive HTML report, allowing users to easily track and evaluate the workflow’s performance and the genomic result.
 # Contents
 - [Workflow Diagram](#workflow-diagram)
 - [Quick tips](#quick-tips)
@@ -88,6 +92,7 @@ nextflow run basil.nf --help # show help
 
     Resources control:
     --meta_merge "f1.csv,f2.xls,..."    Merge metadata and genomic output file (.xlsx, .xls, .tsv, .csv, .tab) (default: null)
+                                        Use it independently.
     --parallel_run N                    Number of sample runs in parallel (default: 1)
     --cpus N                            CPUs in GB per sample (default: 8)
     --ram N                             RAM in GB per sample (default: 16)
