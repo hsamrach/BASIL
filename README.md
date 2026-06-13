@@ -140,23 +140,23 @@ User can specify their runtime container using -profile "STRING".
 In addition to containerized based, Mamba is also supported for users who already have it installed. (-profile mamba)
 
 # Dependencies
-- [fastp](https://github.com/opengene/fastp)=1.1.0
-- [seqkit](https://github.com/shenwei356/seqkit)=2.13.0
-- [multiqc](https://github.com/MultiQC/MultiQC)=1.31
-- [pandas](https://github.com/pandas-dev/pandas)=3.0.1
-- [openpyxl](https://pypi.org/project/openpyxl/)=3.1.5
-- [samtools](https://github.com/samtools/samtools)=1.23
-- [bwa-mem2](https://github.com/bwa-mem2/bwa-mem2)=2.3
-- [spades](https://github.com/ablab/spades)=4.2.0
-- [quast](https://github.com/ablab/quast)=5.3.0
-- [kmc](https://github.com/refresh-bio/KMC)=3.2.4
-- [samclip](https://github.com/tseemann/samclip)=0.4
-- [pilon](https://github.com/broadinstitute/pilon)=1.24
-- [kraken2](https://github.com/DerrickWood/kraken2)=2.1.6
-- [gtdbtk](https://github.com/Ecogenomics/GTDBTk)=2.5.2
-- [checkm2](https://github.com/chklovski/CheckM2)=1.1.0
-- [abricate](https://github.com/tseemann/abricate)=1.4.0
-- [abritamr](https://github.com/MDU-PHL/abritamr)=1.3.0
+- [fastp](https://github.com/opengene/fastp)>=1.1.0
+- [seqkit](https://github.com/shenwei356/seqkit)>=2.13.0
+- [multiqc](https://github.com/MultiQC/MultiQC)>=1.31
+- [pandas](https://github.com/pandas-dev/pandas)>=3.0.1
+- [openpyxl](https://pypi.org/project/openpyxl/)>=3.1.5
+- [samtools](https://github.com/samtools/samtools)>=1.23
+- [bwa-mem2](https://github.com/bwa-mem2/bwa-mem2)>=2.3
+- [spades](https://github.com/ablab/spades)>=4.2.0
+- [quast](https://github.com/ablab/quast)>=5.3.0
+- [kmc](https://github.com/refresh-bio/KMC)>=3.2.4
+- [samclip](https://github.com/tseemann/samclip)>=0.4
+- [pilon](https://github.com/broadinstitute/pilon)>=1.24
+- [kraken2](https://github.com/DerrickWood/kraken2)>=2.1.6
+- [gtdbtk](https://github.com/Ecogenomics/GTDBTk)>=2.5.2
+- [checkm2](https://github.com/chklovski/CheckM2)>=1.1.0
+- [abricate](https://github.com/tseemann/abricate)>=1.4.0
+- [abritamr](https://github.com/MDU-PHL/abritamr)>=1.3.0
 
 Please cite each of these tools if you are using this workflow.
 # Authors
