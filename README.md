@@ -56,14 +56,14 @@ nextflow run basil.nf --help # show help
     --reads_dir DIR                     Directory containing paired-end reads (default: null)
     --reads_tsv FILE                    TSV file with columns: sample, read1, read2 (default: null)
     --contigs_dir DIR                   Directory containing pre-assembled contigs (.fasta, .fas, .fa, .fna) (default: null)
-    --dir_depth N                       Depth of directory for searching reads in --reads_dir (default: 1)
+    --dir_depth N                       Depth of directory for searching input files in --reads_dir/--contigs_dir (default: 1)
     --outdir DIR                        Output directory (default: BASIL_out)
 
     Paired-end QC:
-    --pe_quality_fail_rate N            Maximum percentage of low-quality bases allowed (default: 40)
-    --pe_min_length N                   Minimum read length required (default: 50)
-    --pe_base_depth N                   Phred score threshold for qualified bases (default: 15)
-    --pe_no_correction                  Disable read correction for paired-end reads (default: enabled)
+    --pe_quality_fail_rate N            Maximum percentage of low-quality bases allowed (default: 40). "-u" in fastp
+    --pe_min_length N                   Minimum read length required (default: 50). "--length_required" in fastp
+    --pe_base_depth N                   Phred score threshold for qualified bases (default: 15). "-q" in fastp
+    --pe_no_correction                  Disable read correction for paired-end reads (default: enabled). "--correction" in fastp
     --pe_extra_opt "STRING"             Extra fastp options — note: 5 options are already used by default (start with pe_*)
     --min_genome_cov N                  Minimum genome coverage for pass assembly (default: < 20)
     --max_genome_cov N                  Maximum genome coverage for downsampling (default: > 150)
@@ -102,6 +102,10 @@ nextflow run basil.nf --help # show help
     --version                           Show version and exit
     --help                              Show this help message and exit
 ```
+## --dir_depth
+Searching for input data in sub-directories based on the provided number.
+## --pe_extra_opt
+Please refer to [fastp](https://github.com/opengene/fastp) for additional options for paired-end reads manipulation.
 ## --min_genome_cov
 The genome coverage under this value will not be submitted to assembly but its fastq reads will run Kraken2 as usual.
 ## --max_genome_cov
@@ -111,6 +115,16 @@ For example:
 --max_genome_cov 150
 So, 200 coverages of reads will be reduced to 150 coverages using the downsampling method.
 ```
+## --asm_used
+This option allows you to choose which SPAdes assembly output to use: contigs.fasta or scaffolds.fasta.
+## --skip_polish
+This option allows you to skip the polishing step and use the SPAdes assembly directly for the filtering step.
+## --only_filtered and --only_polished
+Select the assembly that will be used for species identification and gene prediction. By default, both assemblies will be used.
+## --meta_merge
+Metadata and genomic results can be merged using this option. By doing this, the sample id in column 1 of each data must be identical. Lowercase and Uppercase of each letter are considered as different sample id.
+## --parallel_run
+Specify the number of samples that can be processed in parallel. Built-in option of Nextflow is "maxForks".
 # Databases
 Once you specify the database path for each tool, the path will be saved, so you won't need to enter it again for the next run. Meanwhile, you can also overwrite or clear the saved database paths at any time.
 ## CheckM2 database (Mandatory)
