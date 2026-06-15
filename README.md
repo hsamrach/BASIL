@@ -121,6 +121,8 @@ This option allows you to choose which SPAdes assembly output to use: contigs.fa
 This option allows you to skip the polishing step and use the SPAdes assembly directly for the filtering step.
 ## --only_filtered and --only_polished
 Select the assembly that will be used for species identification and gene prediction. By default, both assemblies will be used.
+
+sample_id_filt.fasta: This is the final assembly in this workflow that you should use.
 ## --meta_merge
 Metadata and genomic results can be merged using this option. By doing this, the sample id in column 1 of each data must be identical. Lowercase and Uppercase of each letter are considered as different sample id.
 ## --parallel_run
