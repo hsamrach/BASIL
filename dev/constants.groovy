@@ -1,10 +1,3 @@
-// ============================================
-// BASIL Pipeline - Fixed Constants
-// ============================================
-// These values are NOT overridable via CLI
-// Edit this file to change pipeline defaults
-// ============================================
-
 def kmer_size = 21
 def kmer_min_count = 10
 def genome_size_max = 10000000
@@ -21,7 +14,7 @@ def pol_bwa_B = 4
 def pol_bwa_L = 20
 
 // Return as a map for access throughout the pipeline
-[
+params.constants = [
     kmer_size: kmer_size,
     kmer_min_count: kmer_min_count,
     genome_size_max: genome_size_max,
