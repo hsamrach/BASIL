@@ -129,6 +129,9 @@ sample_id_polished.fasta: This is the polished assembly before filtering.
 Metadata and genomic results can be merged using this option. By doing this, the sample id in column 1 of each data must be identical. Lowercase and Uppercase of each letter are considered as different sample id.
 ## --parallel_run
 Specify the number of samples that can be processed in parallel. Built-in option of Nextflow is "maxForks".
+# Report
+```amr_consensus_report.html``` is a consensus report that integrates AMR gene detection results from Abricate and AbritAMR using five databases: NCBI AMRFinderPlus, CARD, ARG-ANNOT, ResFinder, and AMRFinderPlus (AbritAMR). This report provides a comprehensive comparative overview of AMR genes detected across different databases, enabling users to evaluate database concordance and supporting further downstream investigation. An example of the output is shown below.
+
 # Databases
 Once you specify the database path for each tool, the path will be saved, so you won't need to enter it again for the next run. Meanwhile, you can also overwrite or clear the saved database paths at any time.
 ## CheckM2 database (Mandatory)
