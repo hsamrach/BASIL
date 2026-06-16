@@ -11,6 +11,7 @@ At each step of the process, important information is summarized in the interact
 - [Quick tips](#quick-tips)
 - [Installation](#installation)
 - [Options](#options)
+- [Report](#report)
 - [Databases](#databases)
 - [Containers available](#containers-available)
 - [Mamba](#mamba)
