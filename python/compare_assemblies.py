@@ -28,11 +28,11 @@ def parse_quast_report(report_file):
 
 
 def score_assembly(metrics):
-    """scoring: prioritize N50, then length, then contig count"""
-    n50_score      = metrics.get('n50', 0)
-    contig_penalty = metrics.get('contigs', 999999)
-    length_score   = metrics.get('total_length', 0)
-    return (n50_score * 1000) - (contig_penalty * 1) + (length_score * 100)
+    """scoring: strict priority — N50 > total_length > contig count"""
+    n50     = metrics.get('n50', 0)
+    length  = metrics.get('total_length', 0)
+    contigs = metrics.get('contigs', 999999)
+    return (n50, length, -contigs)
 
 
 # parse QUAST reports
