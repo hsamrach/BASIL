@@ -22,7 +22,7 @@ At each step of the process, important information is summarized in the interact
 # Quick tips
 This is the fittest command that we tested in our HPC with resources 64 CPUs and 1GB RAM.
 ```
-basil --reads_dir /path/fastq_dir --outdir /path/output_1 --cpus8 --ram 120 --parallel_run 8 --checkm2_db /path/checkm2_database/uniref100.KO.1.dmnd/ --kraken2_db /path/kraken2_database/ --gtdbtk_db /path/gtdbtk_database/ --abricate_opt "-t 16" --abritamr_opt "-j 16" -profile mamba --genome_size 5000000
+basil --reads_dir /path/fastq_dir --outdir /path/output_1 --cpus8 --ram 120 --parallel_run 8 --checkm2_db /path/checkm2_database/uniref100.KO.1.dmnd/ --kraken2_db /path/kraken2_database/ --gtdbtk_db /path/gtdbtk_database/ -profile mamba --genome_size 5000000
 ```
 # Installation
 ## Install via conda or mamba
