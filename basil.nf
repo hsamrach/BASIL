@@ -67,7 +67,7 @@ def help() {
 
 def version() {
     log.info """
-    BASIL Version 1.0
+    BASIL Version 1.1
     """.stripIndent()
 }
 
