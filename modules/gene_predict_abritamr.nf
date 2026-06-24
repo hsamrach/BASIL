@@ -33,7 +33,7 @@ process gene_predict_abritamr {
         --contigs abritamr_list.tab \\
         --prefix abritamr_output \\
         -j ${params.cpus} \\
-        --identity ${params.minid_genes / 100.0} \\
+        --identity ${params.minid_genes.toDouble() / 100.0} \\
         ${species_opt}
     
     # generate html report from summary_matches.txt
