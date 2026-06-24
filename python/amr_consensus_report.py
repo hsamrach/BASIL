@@ -53,6 +53,23 @@ def normalize_gene(gene: str, db_id=None) -> str:
     return g.strip("-")
 
 
+_QNR_REPORT_RE = re.compile(r"^qnr[-_]?([a-z])[-_]?(\d+)$", re.IGNORECASE)
+
+
+def canonicalize_qnr_gene(gene: str) -> str:
+    m = _QNR_REPORT_RE.match(gene.strip())
+    if m:
+        return f"qnr{m.group(1).upper()}{m.group(2)}"
+    return gene
+
+
+def format_gene_for_report(gene: str, had_bla: bool = False) -> str:
+    gene = canonicalize_qnr_gene(gene)
+    if had_bla and not gene.lower().startswith("bla"):
+        gene = f"bla{gene}"
+    return gene
+
+
 def best_canonical(raw_names) -> str:
     def rank(n):
         has_bla     = int(n.lower().startswith("bla"))
@@ -181,9 +198,16 @@ def build_consensus(all_db_genes: dict) -> dict:
         for db_id, db_genes in all_db_genes.items():
             for gene in db_genes.get(sample_id, []):
                 display_gene = prepare_gene_for_display(gene, db_id)
-                key = normalize_gene(gene, db_id)
-                if not key or not display_gene:
+                if not display_gene:
                     continue
+                key = normalize_gene(gene, db_id)
+                if not key:
+                    key = display_gene.lower()
+                    print(
+                        f"  Warning: gene '{gene}' (sample {sample_id}) normalized to an "
+                        f"empty matching key; reporting as '{display_gene}' instead of dropping it",
+                        file=sys.stderr,
+                    )
                 if key not in gene_map:
                     gene_map[key] = {"display_names": set(), "db_ids": set()}
                 gene_map[key]["display_names"].add(display_gene)
@@ -192,6 +216,8 @@ def build_consensus(all_db_genes: dict) -> dict:
         entries = []
         for _key, info in sorted(gene_map.items()):
             canonical = best_canonical(info["display_names"])
+            had_bla = any(n.lower().startswith("bla") for n in info["display_names"])
+            canonical = format_gene_for_report(canonical, had_bla)
             entries.append(make_entry_payload(canonical, info["db_ids"]))
 
         entries.sort(key=lambda t: t["gene"].lower())
