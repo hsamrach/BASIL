@@ -135,7 +135,7 @@ Specify the number of samples that can be processed in parallel. Built-in option
 ```assembly_report.html``` is a report that consist of 3 tabs (Assembly, Polishing, and Filtering) that provide information on our internal runs and decisions during these processes.
 ```abricate_report.html``` is a report from different database use of abricate, including the genes detected from AMR, Plasmid, Virulence factor, etc.
 ```abritamr_report.html``` is a report of AMR genes detected and classified into each antibiotic class. (good for pheno-genotyping of AMR)
-```amr_consensus_summary.tsv``` is a raw data of ```amr_consensus_report.html``` before it was consensu
+```amr_consensus_summary.tsv``` is a raw data of ```amr_consensus_report.html``` before it was consensused.
 ```amr_consensus_report.html``` is a consensus report that integrates AMR gene detection results from Abricate and AbritAMR using five databases: NCBI AMRFinderPlus, CARD, ARG-ANNOT, ResFinder, and AMRFinderPlus (AbritAMR). This report provides a comprehensive comparative overview of AMR genes detected across different databases, enabling users to evaluate database concordance and supporting further downstream investigation.
 # Databases
 Once you specify the database path for each tool, the path will be saved, so you won't need to enter it again for the next run. Meanwhile, you can also overwrite or clear the saved database paths at any time.
