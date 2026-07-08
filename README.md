@@ -192,4 +192,4 @@ In addition to containerized based, Mamba is also supported for users who alread
 
 Please cite each of these tools if you are using this workflow.
 # Authors
-**Citation: Han S., Gonnella G., Guillard B., Cheng S., Rahi P. (2026). BASIL. GitHub: https://github.com/hsamrach/BASIL**
+**Citation: Han Samrach, Gonnella Giorgio, Guillard Bertrand, Cheng Sokleaph, Rahi Praveen (2026). BASIL. GitHub: https://github.com/hsamrach/BASIL**
