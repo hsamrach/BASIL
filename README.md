@@ -62,7 +62,7 @@ nextflow run basil.nf --help # show help
     Paired-end QC:
     --pe_quality_fail_rate N            Maximum percentage of low-quality bases allowed (default: 40). "-u" in fastp
     --pe_min_length N                   Minimum read length required (default: 50). "--length_required" in fastp
-    --pe_base_depth N                   Phred score threshold for qualified bases (default: 15). "-q" in fastp
+    --pe_base_depth N                   Phred score threshold for qualified bases (default: 20). "-q" in fastp
     --pe_no_correction                  Disable read correction for paired-end reads (default: enabled). "--correction" in fastp
     --pe_extra_opt "STRING"             Extra fastp options — note: 5 options are already used by default (start with pe_*)
     --min_genome_cov N                  Minimum genome coverage for pass assembly (default: < 20)
@@ -91,7 +91,7 @@ nextflow run basil.nf --help # show help
                                         Vibrio_cholerae,Vibrio_vulfinicus,Vibrio_parahaemolyticus"
 
     Resources control:
-    --meta_merge "f1.csv,f2.xls,..."    Merge metadata and genomic output file (.xlsx, .xls, .tsv, .csv, .tab) (default: null)
+    --meta_merge "f1.csv,f2.xls,..."    Merge metadata and genomic output file (.xlsx, .xls, .tsv, .csv, .tab, .txt) (default: null)
                                         Use it independently.
     --parallel_run N                    Number of sample runs in parallel (default: 1)
     --cpus N                            CPUs in GB per sample (default: 8)
