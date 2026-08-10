@@ -23,7 +23,7 @@ def help() {
     Paired-end QC:
     --pe_quality_fail_rate N            Maximum percentage of low-quality bases allowed (default: 40). "-u" in fastp
     --pe_min_length N                   Minimum read length required (default: 50). "--length_required" in fastp
-    --pe_base_depth N                   Phred score threshold for qualified bases (default: 15). "-q" in fastp
+    --pe_base_depth N                   Phred score threshold for qualified bases (default: 20). "-q" in fastp
     --pe_no_correction                  Disable read correction for paired-end reads (default: enabled). "--correction" in fastp
     --pe_extra_opt "STRING"             Extra fastp options — note: 5 options are already used by default (start with pe_*)
     --min_genome_cov N                  Minimum genome coverage for pass assembly (default: < 20)
@@ -67,7 +67,7 @@ def help() {
 
 def version() {
     log.info """
-    BASIL Version 1.1
+    BASIL Version 1.2
     """.stripIndent()
 }
 
