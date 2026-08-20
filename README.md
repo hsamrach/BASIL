@@ -142,7 +142,7 @@ Specify the number of samples that can be processed in parallel. Built-in option
 
 ```amr_consensus_summary.tsv``` is a raw data of ```amr_consensus_report.html``` before it was consensused.
 
-```amr_consensus_report.html``` is a consensus report that integrates AMR gene detection results from Abricate and AbritAMR using five databases: NCBI AMRFinderPlus, CARD, ARG-ANNOT, ResFinder, and AMRFinderPlus (AbritAMR). This report provides a comprehensive comparative overview of AMR genes detected across different databases, enabling users to evaluate database concordance and supporting further downstream investigation.
+```amr_consensus_report.html``` is a consensus report that integrates AMR gene detection results from Abricate and AbritAMR using five databases: NCBI AMRFinderPlus, CARD, ARG-ANNOT, ResFinder, and AMRFinderPlus (AbritAMR). This report provides a comprehensive comparative overview of AMR genes detected across different databases, enabling users to evaluate database concordance and supporting further downstream investigation. (Please double-check the AMR genes after consensus, as some genes may not have been consolidated due to small differences in gene naming)
 # Databases
 Once you specify the database path for each tool, the path will be saved, so you won't need to enter it again for the next run. Meanwhile, you can also overwrite or clear the saved database paths at any time.
 ## CheckM2 database (Mandatory)
