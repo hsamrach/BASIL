@@ -17,7 +17,7 @@ At each step of the process, important information is summarized in the interact
 - [Dependencies](#dependencies)
 - [Authors](#authors)
 # Workflow Diagram
-<img src="BASIL_workflow.png" alt="Logo" width="800">
+<img src="BASIL_workflow.svg" alt="Logo" width="800">
 
 # Quick tips
 This is the fittest command that we tested in our HPC with resources 64 CPUs and 1GB RAM.
