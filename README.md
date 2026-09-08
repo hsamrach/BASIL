@@ -169,8 +169,8 @@ For Kraken2, you can download their pre-built database through this link with yo
 # Containers available
 ## Apptainer/Singularity/Docker
 User can specify their runtime container using -profile "STRING".
-# Mamba
-In addition to containerized based, Mamba is also supported for users who already have it installed. (-profile mamba)
+# Conda
+In addition to containerized based, Conda is also supported for users who already have it installed. By default, conda will be used.
 
 # Dependencies
 - [fastp](https://github.com/opengene/fastp)>=1.1.0
