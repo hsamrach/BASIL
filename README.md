@@ -190,6 +190,7 @@ In addition to containerized based, Conda is also supported for users who alread
 - [checkm2](https://github.com/chklovski/CheckM2)>=1.1.0
 - [abricate](https://github.com/tseemann/abricate)>=1.4.0
 - [abritamr](https://github.com/MDU-PHL/abritamr)>=1.3.0
+- BLAST >=2.17.0
 
 Please cite each of these tools if you are using this workflow.
 # Authors
