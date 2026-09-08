@@ -41,7 +41,8 @@ def help() {
     --kraken2_db DIR                    Path to Kraken2 database (saved for future runs, auto-runs if available)
     --gtdbtk_db DIR                     Path to GTDB-Tk database (saved for future runs, auto-runs if available)
     --minid_genes N                     Minimum identity for abricate & abritamr (default: 90)
-    --mincov_genes N                    Minimum coverage for abricate (default: 90). abritamr is constantly used 90% coverage (unmodifiedable).
+    --mincov_genes N                    Minimum coverage for abricate & abritamr (default: 90). We keep abritamr report with 90% coverages constantly.
+                                        However, in amr_consensus report, coverage of abritamr is flexible based on provided coverages (same as abricate).
     --mutation "STRING"                 Provide species name for point mutation analysis by abritamr (default: null)
                                         Available species: "Acinetobacter_baumannii,Burkholderia_cepacia,Burkholderia_pseudomallei,
                                         Burkholderia_mallei,Campylobacter,Citrobacter_freundii,Clostridioides_difficile,
@@ -58,7 +59,7 @@ def help() {
     --cpus N                            CPUs in GB per sample (default: 8)
     --ram N                             RAM in GB per sample (default: 16)
     -resume                             Resume work (built-in nextflow function)
-    -profile "STRING"                   Alternative use of profile platform (choices: apptainer/singularity/docker/mamba, default: apptainer)
+    -profile "STRING"                   Alternative use of profile platform (choices: apptainer/singularity/docker/conda, default: conda)
     --clear_saved_db "STRING"           Clear saved database paths (choices: checkm2, kraken2, gtdbtk, all)
     --version                           Show version and exit
     --help                              Show this help message and exit
@@ -67,7 +68,7 @@ def help() {
 
 def version() {
     log.info """
-    BASIL Version 1.2
+    BASIL Version 1.3
     """.stripIndent()
 }
 
@@ -492,7 +493,8 @@ def collected_contig_ch = format_convert_contigs.out.collected_dir
 
         gene_predict_amr_consensus(
             gene_predict_abricate.out[0],
-            gene_predict_abritamr.out[2]
+            gene_predict_abritamr.out[5],
+            format_convert_contigs.out.collected_dir.collect()
         )
     }
     
@@ -520,7 +522,7 @@ def collected_contig_ch = format_convert_contigs.out.collected_dir
             .mix(gene_predict_abritamr.out[2])
             .mix(gene_predict_abritamr.out[3])
             .mix(gene_predict_amr_consensus.out.html_report)
-            .mix(gene_predict_amr_consensus.out.tsv_summary)
+            .mix(gene_predict_amr_consensus.out.consensus_tsv)
     }
     
     main_report(all_done.collect())
@@ -743,7 +745,8 @@ if (needs_collection) {
 
     gene_predict_amr_consensus(
         gene_predict_abricate.out[0],
-        gene_predict_abritamr.out[2]
+        gene_predict_abritamr.out[5],
+        assembly_collection.out.collected_dir
     )
 }
 
@@ -788,7 +791,7 @@ if (needs_collection) {
         .mix(gene_predict_abritamr.out[2])
         .mix(gene_predict_abritamr.out[3])
         .mix(gene_predict_amr_consensus.out.html_report)
-        .mix(gene_predict_amr_consensus.out.tsv_summary)
+        .mix(gene_predict_amr_consensus.out.consensus_tsv)
 }
 
 main_report(all_done.collect())
