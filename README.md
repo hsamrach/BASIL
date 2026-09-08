@@ -13,7 +13,7 @@ At each step of the process, important information is summarized in the interact
 - [Report](#report)
 - [Databases](#databases)
 - [Containers available](#containers-available)
-- [Mamba](#mamba)
+- [Conda](#conda)
 - [Dependencies](#dependencies)
 - [Authors](#authors)
 # Workflow Diagram
