@@ -105,6 +105,7 @@ nextflow run basil.nf --help # show help
 ```
 ## AMR consensus mechanism (100% identity and >=90% coverages)
 AMR consensus is performed by cross-checking the identity and coverage of each AMR gene detected in the same contig and determining whether they represent the same or different AMR genes. If they are the same gene, it is reported only once. This process is safer than compiling AMR genes based solely on gene names, as different databases may use different gene names for the exact same gene.
+<img src="amr_consensus.svg" alt="Logo" width="500">
 ## --dir_depth
 Searching for input data in sub-directories based on the provided number.
 ## --pe_extra_opt
