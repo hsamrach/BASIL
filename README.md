@@ -22,13 +22,13 @@ At each step of the process, important information is summarized in the interact
 # Quick tips
 This is the fittest command that we tested in our HPC with resources 64 CPUs and 1GB RAM.
 ```
-basil --reads_dir /path/fastq_dir --outdir /path/output_1 --cpus8 --ram 120 --parallel_run 8 --checkm2_db /path/checkm2_database/uniref100.KO.1.dmnd/ --kraken2_db /path/kraken2_database/ --gtdbtk_db /path/gtdbtk_database/ -profile mamba --genome_size 5000000
+basil --reads_dir /path/fastq_dir --outdir /path/output_1 --cpus8 --parallel_run 8 --checkm2_db /path/checkm2_database/uniref100.KO.1.dmnd/ --kraken2_db /path/kraken2_database/ --gtdbtk_db /path/gtdbtk_database/ --genome_size 5000000
 ```
 # Installation
 ## Install via conda or mamba
 This is a ready-to-use installation that automatically installs Nextflow and BASIL together in one command.
 ```
-conda(mamba) create -n basil_env -c samrachhan11 -c conda-forge -c bioconda -c defaults basil=1.2 -y
+conda(mamba) create -n basil_env -c samrachhan11 -c conda-forge -c bioconda -c defaults basil=1.3 -y
 conda(mamba) activate basil_env
 basil --help # show help
 ```
@@ -80,7 +80,8 @@ nextflow run basil.nf --help # show help
     --kraken2_db DIR                    Path to Kraken2 database (saved for future runs, auto-runs if available)
     --gtdbtk_db DIR                     Path to GTDB-Tk database (saved for future runs, auto-runs if available)
     --minid_genes N                     Minimum identity for abricate & abritamr (default: 90)
-    --mincov_genes N                    Minimum coverage for abricate (default: 90). abritamr is constantly used 90% coverage (unmodifiable).
+    --mincov_genes N                    Minimum coverage for abricate & abritamr (default: 90). We keep abritamr report with 90% coverages constantly.
+                                        However, in amr_consensus report, coverage of abritamr is flexible based on provided coverages (same as abricate).
     --mutation "STRING"                 Provide species name for point mutation analysis by abritamr (default: null)
                                         Available species: "Acinetobacter_baumannii,Burkholderia_cepacia,Burkholderia_pseudomallei,
                                         Burkholderia_mallei,Campylobacter,Citrobacter_freundii,Clostridioides_difficile,
@@ -91,17 +92,19 @@ nextflow run basil.nf --help # show help
                                         Vibrio_cholerae,Vibrio_vulfinicus,Vibrio_parahaemolyticus"
 
     Resources control:
-    --meta_merge "f1.csv,f2.xls,..."    Merge metadata and genomic output file (.xlsx, .xls, .tsv, .csv, .tab, .txt) (default: null)
+    --meta_merge "f1.csv,f2.xls,..."    Merge metadata and genomic output file (.xlsx, .xls, .tsv, .csv, .tab) (default: null)
                                         Use it independently.
     --parallel_run N                    Number of sample runs in parallel (default: 1)
     --cpus N                            CPUs in GB per sample (default: 8)
     --ram N                             RAM in GB per sample (default: 16)
     -resume                             Resume work (built-in nextflow function)
-    -profile "STRING"                   Alternative use of profile platform (choices: apptainer/singularity/docker/mamba, default: apptainer)
+    -profile "STRING"                   Alternative use of profile platform (choices: apptainer/singularity/docker/conda, default: conda)
     --clear_saved_db "STRING"           Clear saved database paths (choices: checkm2, kraken2, gtdbtk, all)
     --version                           Show version and exit
     --help                              Show this help message and exit
 ```
+## AMR consensus mechanism
+AMR consensus is performed by cross-checking the identity and coverage of each AMR gene detected in the same contig and determining whether they represent the same or different AMR genes. If they are the same gene, it is reported only once. This process is safer than compiling AMR genes based solely on gene names, as different databases may use different gene names for the exact same gene.
 ## --dir_depth
 Searching for input data in sub-directories based on the provided number.
 ## --pe_extra_opt
@@ -140,9 +143,7 @@ Specify the number of samples that can be processed in parallel. Built-in option
 
 ```abritamr_report.html``` is a report of AMR genes detected and classified into each antibiotic class. (good for pheno-genotyping of AMR)
 
-```amr_consensus_summary.tsv``` is a raw data of ```amr_consensus_report.html``` before it was consensused.
-
-```amr_consensus_report.html``` is a consensus report that integrates AMR gene detection results from Abricate and AbritAMR using five databases: NCBI AMRFinderPlus, CARD, ARG-ANNOT, ResFinder, and AMRFinderPlus (AbritAMR). This report provides a comprehensive comparative overview of AMR genes detected across different databases, enabling users to evaluate database concordance and supporting further downstream investigation. (Please double-check the AMR genes after consensus, as some genes may not have been consolidated due to small differences in gene naming)
+```amr_consensus_report.html``` is a consensus report that integrates AMR gene detection results from Abricate and AbritAMR using 4 databases: NCBI AMRFinderPlus, CARD, ARG-ANNOT, ResFinder, and AMRFinderPlus (AbritAMR). This report provides a comprehensive comparative overview of AMR genes detected across different databases, enabling users to evaluate database concordance and supporting further downstream investigation.
 # Databases
 Once you specify the database path for each tool, the path will be saved, so you won't need to enter it again for the next run. Meanwhile, you can also overwrite or clear the saved database paths at any time.
 ## CheckM2 database (Mandatory)
