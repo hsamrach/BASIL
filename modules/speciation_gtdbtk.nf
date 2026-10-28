@@ -19,7 +19,7 @@ process speciation_gtdbtk {
             --extension fasta \\
             --cpus ${params.cpus} \\
             --pplacer_cpus ${params.cpus} \\
-            --skip_ani_screen \\
+            --place_species \\
             --force
     """
 }
