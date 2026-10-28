@@ -325,6 +325,7 @@ def createContigsInputChannel() {
 workflow {
     main:
 
+def standalone_mode = false
 validateParams(params)
 
 if (params.help) {
@@ -382,7 +383,7 @@ if (params.meta_merge ?: false) {
     )
 
     meta_merge(meta_files_ch.collect())
-    return
+    standalone_mode = true
 }
     log.info """
     ╔══════════════════════════════════════════╗
@@ -401,30 +402,36 @@ if (params.only_polished && params.skip_polish) {
 }
 
 // load or get databases
-def checkm2_db_path = getOrSaveDatabase(params, 'checkm2_db', 'checkm2_db', 'file')
+def checkm2_db_path = null
 def kraken2_db_path = getOrSaveDatabase(params, 'kraken2_db', 'kraken2_db', 'dir')
 def gtdbtk_db_path = getOrSaveDatabase(params, 'gtdbtk_db', 'gtdbtk_db', 'dir')
 
-// CheckM2 is mandatory - validate early
-if (!checkm2_db_path) {
-    error """
-    ERROR: CheckM2 database path not found!
-    
-    CheckM2 database is mandatory. Please provide it with:
-    --checkm2_db /path/to/uniref100.KO.1.dmnd
-    
-    Once provided, it will be saved and automatically used in future runs.
-    """.stripIndent()
-}
+def skip_checkm2 = standalone_mode || (params.contigs_dir ?: false) || (params.meta_merge ?: false)
 
-// Validate CheckM2 database
-def checkm2_db = file(checkm2_db_path)
-if (!checkm2_db.isFile()) {
-    error "ERROR: CheckM2 database file not found at: ${checkm2_db_path}"
+// load checkm2 only if needed
+if (!skip_checkm2) {
+    checkm2_db_path = getOrSaveDatabase(params, 'checkm2_db', 'checkm2_db', 'file')
+    // CheckM2 is mandatory for normal assembly mode
+    if (!checkm2_db_path) {
+        error """
+        ERROR: CheckM2 database path not found!
+        
+        CheckM2 database is mandatory for normal assembly runs. Please provide it with:
+        --checkm2_db /path/to/uniref100.KO.1.dmnd
+        
+        Once provided, it will be saved and automatically used in future runs.
+        """.stripIndent()
+    }
+    // Validate CheckM2 database
+    def checkm2_db = file(checkm2_db_path)
+    if (!checkm2_db.isFile()) {
+        error "ERROR: CheckM2 database file not found at: ${checkm2_db_path}"
+    }
+    // checkm2_db channel made
+    checkm2_db_ch = channel.value(file(checkm2_db_path))
+} else {
+    checkm2_db_ch = Channel.empty()
 }
-
-// checkm2_db channel made
-def checkm2_db_ch = channel.value(file(checkm2_db_path))
 
 // Check if using contigs_dir mode
 if (params.contigs_dir ?: false) {
@@ -526,15 +533,15 @@ def collected_contig_ch = format_convert_contigs.out.collected_dir
     }
     
     main_report(all_done.collect())
-    
-    return
+    standalone_mode = true
 }
 
-// create input channel
-def input_ch = createInputChannel()
+if (!standalone_mode) {
+    // create input channel
+    def input_ch = createInputChannel()
 
-// execute paired-end QC
-paired_end_QC(input_ch)
+    // execute paired-end QC
+    paired_end_QC(input_ch)
 
 // branch pass / fail based on qc_status.txt
 paired_end_QC.out.reads
@@ -624,7 +631,12 @@ if (!params.skip_polish) {
 }
 
 // assembly_QC runs on filtered assemblies and polished assemblies when available
-assembly_QC(final_assembly_ch, checkm2_db_ch)
+if (!skip_checkm2) {
+    assembly_QC(final_assembly_ch, checkm2_db_ch)
+} else {
+    // For contigs_dir/meta_merge modes, skip assembly QC or handle differently
+    // Create empty channels for QC outputs if needed
+}
 
 // execute qc_summary html report
 read_qc_html_report(
@@ -752,13 +764,21 @@ if (needs_collection) {
 
 // aggregate reports
 def all_done = paired_end_QC.out.json
-    .mix(assembly_QC.out.quast_reports)
-    .mix(assembly_QC.out.checkm2_reports)
-
-if (!params.skip_polish) {
+if (!skip_checkm2) {
     all_done = all_done
-        .mix(assembly_QC.out.quast_polish_reports)
-        .mix(polish_contig.out.polishing_report)
+        .mix(assembly_QC.out.quast_reports)
+        .mix(assembly_QC.out.checkm2_reports)
+
+    if (!params.skip_polish) {
+        all_done = all_done
+            .mix(assembly_QC.out.quast_polish_reports)
+            .mix(polish_contig.out.polishing_report)
+    }
+} else {
+    if (!params.skip_polish) {
+        all_done = all_done
+            .mix(polish_contig.out.polishing_report)
+    }
 }
 
 if (kraken2_db_path) {
@@ -795,4 +815,5 @@ if (needs_collection) {
 }
 
 main_report(all_done.collect())
+    }
 }
