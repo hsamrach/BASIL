@@ -6,4 +6,4 @@ channels:
 dependencies:
   - python=3.11
   - kraken2>=2.1.6
-  - gtdbtk>=2.5.2
+  - gtdbtk>=2.8.0
