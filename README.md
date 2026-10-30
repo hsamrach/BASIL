@@ -20,10 +20,11 @@ At each step of the process, important information is summarized in the interact
 <img src="BASIL_workflow.svg" alt="Logo" width="800">
 
 # Quick tips
-This is the fitest command that we tested on our HPC with 64 CPUs and 1GB RAM.
+This is the fitest command that we tested on our HPC with 64 CPUs and 1000GB RAM.
 ```
 basil --reads_dir /path/fastq_dir --outdir /path/output_1 --cpus8 --parallel_run 8 --checkm2_db /path/checkm2_database/uniref100.KO.1.dmnd/ --kraken2_db /path/kraken2_database/ --gtdbtk_db /path/gtdbtk_database/ --genome_size 5000000
 ```
+On a PC with 16 GB RAM and 8 CPUs, we recommend skipping GTDB-Tk and Kraken2 due to their high resource requirements. Other tools can still be used.
 # Installation
 ## Install via conda or mamba
 This is a ready-to-use installation that automatically installs Nextflow and BASIL together in one command.
@@ -172,8 +173,10 @@ For Kraken2, you can download their pre-built database through this link with yo
 # Containers available
 ## Apptainer/Singularity/Docker
 Users can specify their runtime container using -profile "STRING".
+The container is downloaded once on first use and reused for subsequent runs.
 # Conda
 In addition to containerized based, Conda is also supported for users who already have it installed. By default, conda will be used.
+The conda environment is created once on first use and reused for subsequent runs.
 
 # Dependencies
 - [fastp](https://github.com/opengene/fastp)>=1.1.0
