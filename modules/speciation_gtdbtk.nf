@@ -19,7 +19,6 @@ process speciation_gtdbtk {
             --extension fasta \\
             --cpus ${params.cpus} \\
             --pplacer_cpus ${params.cpus} \\
-            --place_species \\
             --force
     """
 }
