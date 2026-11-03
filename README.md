@@ -29,7 +29,7 @@ On a PC with 16 GB RAM and 8 CPUs, we recommend skipping GTDB-Tk and Kraken2 due
 ## Install via conda or mamba
 This is a ready-to-use installation that automatically installs Nextflow and BASIL together in one command.
 ```
-conda(mamba) create -n basil_env -c samrachhan11 -c conda-forge -c bioconda -c defaults basil=1.3 -y
+conda(mamba) create -n basil_env -c samrachhan11 -c conda-forge -c bioconda -c defaults basil=1.4 -y
 conda(mamba) activate basil_env
 basil --help # show help
 ```
