@@ -4,6 +4,6 @@ channels:
   - bioconda
   - defaults
 dependencies:
-  - checkm2>=1.1.0
-  - quast>=5.3.0
-  - spades>=4.2.0
+  - checkm2=1.1.0
+  - quast=5.3.0
+  - spades=4.2.0
